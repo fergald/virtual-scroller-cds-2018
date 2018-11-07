@@ -1,0 +1,175 @@
+<html>
+    <head>
+        <title>Compare & Contrast</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+        <script type="module" src="index.js"></script>
+        <style>
+            body {
+                font-size: 12pt;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                margin: 0;
+                background: white;
+                --ac-color: #ddd;
+                /* display: flex;
+                flex-direction: column; */
+                overflow: hidden;
+            }
+
+            body.dark {
+                background: black;
+                color: white;
+                --ac-color: #333;
+            }
+
+            header {
+                height: 56px;
+                font-size: 14pt;
+                line-height: 56px;
+                background: rgb(87, 23, 182);
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+                color: white;
+                padding: 0 16px;
+                position: relative;
+                z-index: 200;
+            }
+
+            header svg {
+                height: 1.5em;
+                width: 1.5em;
+                position: absolute;
+                top: 0.75em;
+                right: 1em;
+            }
+
+            .scrollable {
+                /* flex: 1; */
+                position: absolute;
+                top: 56px;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: unset;
+                overflow: auto;
+            }
+
+            .item {
+                position: relative;
+                padding: 1em 2em 1em 5em;
+                border-bottom: 1px solid var(--ac-color);
+                box-sizing: border-box;
+                /* Temp */
+                width: 100%;
+            }
+
+            .item h2 {
+                font-size: 1em;
+                margin: 0;
+            }
+
+            .item p {
+                margin-bottom: 0;
+            }
+
+            .item .letter,
+            .item img {
+                height: 3em;
+                width: 3em;
+                border-radius: 50%;
+                position: absolute;
+                margin-left: -4em;
+                background-color: var(--ac-color);
+            }
+
+            .compact .item p {
+                display: none;
+            }
+
+            .compact .item .letter,
+            .compact .item img {
+                height: 1.8em;
+                width: 1.8em;
+                margin-left: -2.5em;
+            }
+
+            .compact .item {
+                padding: 1em 2em 1em 3em;
+            }
+
+            #settings {
+                display: flex;
+                height: 100%;
+                flex-direction: column-reverse;
+                font-size: 14pt;
+                position: absolute;
+                top: 0;
+                right: 0;
+                /* transform: translate3d(100%, 0, 0); */
+                transform: translateX(100%);
+                background: #222;
+                opacity: 0.95;
+                padding: 56px 1em 1.5em 1em;
+                z-index: 100;
+                transition: transform 0.3s ease 0s;
+                box-sizing: border-box;
+                color: #DDD;
+                box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+                /* will-change: transform; */
+            }
+
+            #settings.open {
+                /* transform: translate3d(0, 0, 0); */
+                transform: translateX(0);
+            }
+
+            #settings svg {
+                width: 1.5em;
+                margin-left: 0.2em;
+            }
+
+            v-slider {
+                flex: 1;
+            }
+
+            #settings > * {
+                margin-top: 1.5em;
+            }
+
+            #scrim {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background: red;
+                opacity: 0.5;
+                z-index: 50;
+                pointer-events: none;
+                display: none;
+            }
+
+            .janking #scrim {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <template>
+            <div class="item">
+                <img />
+                <h2></h2>
+                <p></p>
+            </div>
+        </template>
+        <header>
+            <svg id="gear" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84.2 88"><defs><style>.cls-1{fill:#fff;}</style></defs><title>gear-white</title><path class="cls-1" d="M44,6a6,6,0,0,0-6,6v4.19A35.81,35.81,0,0,0,26.35,23L22.69,21a6,6,0,0,0-8.16,2.28L8.66,33.72A6,6,0,0,0,11,41.91L14.63,44A35.32,35.32,0,0,0,14,50a36,36,0,0,0,.63,6L11,58.06a6,6,0,0,0-2.31,8.19l5.87,10.47A6,6,0,0,0,22.69,79l3.66-2A35.91,35.91,0,0,0,38,83.78V88a6,6,0,0,0,6,6H56a6,6,0,0,0,6-6V83.78A35.92,35.92,0,0,0,73.63,77l3.65,2a6.06,6.06,0,0,0,8.19-2.28c2-3.67,4.1-7.37,5.88-10.47A6.06,6.06,0,0,0,89,58.06L85.35,56A36,36,0,0,0,86,50a36.36,36.36,0,0,0-.65-6L89,41.91a6.06,6.06,0,0,0,2.35-8.19c-2.1-3.61-4.19-7.39-5.88-10.47A6.06,6.06,0,0,0,77.28,21l-3.65,2A35.92,35.92,0,0,0,62,16.19V12a6,6,0,0,0-6-6Zm0,4H56a2,2,0,0,1,2,2v5.5a2.07,2.07,0,0,0,1.41,1.91,31.93,31.93,0,0,1,12.66,7.43,2,2,0,0,0,2.37.28l4.81-2.68a2,2,0,0,1,2.72.78l5.88,10.47A2,2,0,0,1,87,38.44l-4.78,2.68a2.08,2.08,0,0,0-1,2.16,31.58,31.58,0,0,1,0,13.41,2.06,2.06,0,0,0,1,2.15L87,61.53a2,2,0,0,1,.82,2.75L82,74.75a2,2,0,0,1-2.72.78l-4.81-2.69a2.07,2.07,0,0,0-2.37.28,31.83,31.83,0,0,1-12.66,7.44A2.06,2.06,0,0,0,58,82.5V88a2,2,0,0,1-2,2H44a2,2,0,0,1-2-2V82.5a2.07,2.07,0,0,0-1.43-1.94,31.77,31.77,0,0,1-12.66-7.44,2.09,2.09,0,0,0-2.38-.28l-4.81,2.69A1.92,1.92,0,0,1,18,74.75c-2.09-3.61-4.18-7.39-5.87-10.47a2,2,0,0,1,.78-2.75l4.78-2.69a2,2,0,0,0,1-2.15,32.92,32.92,0,0,1,0-13.41,2.05,2.05,0,0,0-1-2.16l-4.78-2.68a2,2,0,0,1-.78-2.75c2-3.67,4.1-7.37,5.87-10.47a1.92,1.92,0,0,1,2.69-.78l4.81,2.68a2.05,2.05,0,0,0,2.38-.28,31.86,31.86,0,0,1,12.66-7.43A2.06,2.06,0,0,0,42,17.5V12a2,2,0,0,1,2-2Zm6,18A22,22,0,1,0,72,50,22,22,0,0,0,50,28Zm0,4A18,18,0,1,1,32,50,18,18,0,0,1,50,32Z" transform="translate(-7.9 -6)"/></svg>
+        </header>
+        <div id="settings">
+            <svg id="dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 31.28 55.36"><defs><style>.cls-1{fill:#fff;}</style></defs><title>light-bulb</title><g id="Layer_1" data-name="Layer 1"><path class="cls-1" d="M31.28,15.52c0,8.32-5.2,9-7.52,21.28a1.56,1.56,0,0,0-.08.56,3.25,3.25,0,0,1-3.12,2.56H10.8a3.11,3.11,0,0,1-3.12-2.64C5.6,25.6,0,24,0,15.52a15.64,15.64,0,0,1,31.28,0ZM22.64,43.68a1.43,1.43,0,0,1-1.44,1.44h-11a1.44,1.44,0,0,1,0-2.88h11A1.43,1.43,0,0,1,22.64,43.68Zm0,5.12a1.43,1.43,0,0,1-1.44,1.44h-11a1.44,1.44,0,0,1,0-2.88h11A1.43,1.43,0,0,1,22.64,48.8ZM11.36,52.48H20l-2.4,2.88H13.76Z"/></g></svg>
+            <svg id="compact" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 93.2 93.2"><defs><style>.cls-1{fill:#fff;}</style></defs><title>expand</title><g id="a"><path class="cls-1" d="M37.2,70h-5A2,2,0,0,1,30,67.75v-5L13.7,79V70.8H3.3l0,20.65A5.14,5.14,0,0,0,4.8,95.1a5.39,5.39,0,0,0,3.7,1.5H29.2l-.05-10.35H21L37.2,70M21,13.85h8.2V3.45L8.5,3.4A5.14,5.14,0,0,0,4.85,5a5.23,5.23,0,0,0-1.6,3.7v20.7L13.7,29.3V21.1L30,37.4V32.25A2,2,0,0,1,32.25,30H37.1L21,13.85m65.15,57V79L70,62.9v4.85A2,2,0,0,1,67.75,70H62.5L78.85,86.25h-8.2L70.6,96.6H91.3A4.94,4.94,0,0,0,95,95.15a5,5,0,0,0,1.5-3.7l0-20.65H86.1m0-41.5,10.35.05V8.65A5.39,5.39,0,0,0,95,5,5.14,5.14,0,0,0,91.3,3.4l-20.65.05v10.4h8.2L62.7,30h5A2,2,0,0,1,70,32.25v5L86.1,21.1Z" transform="translate(-3.25 -3.4)"/></g></svg>
+            <v-slider></v-slider>
+        </div>
+        <section class="scrollable"></section>
+        <div id="scrim"></div>
+    </body>
+</html>
+
