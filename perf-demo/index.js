@@ -1,5 +1,5 @@
 import 'virtual-scroller/virtual-scroller-element.js';
-import './lib/v-slider.js';
+import '../lib/v-slider.js';
 
 const itemTemplate = document.querySelector('template');
 const blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
@@ -123,7 +123,7 @@ async function go() {
     hookUpUI();
     const n = 50;
     let items = [];
-    const resp = await fetch('./contacts.json');
+    const resp = await fetch('../contacts.json');
     const orig = await resp.json();
     while(items.length < n) {
         items = items.concat(orig);
