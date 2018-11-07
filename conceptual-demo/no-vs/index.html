@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <title>Compare & Contrast</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+        <script type="module" src="index.js"></script>
+        <style>
+            body {
+                font-size: 12pt;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                margin: 0;
+                background: white;
+                --ac-color: #ddd;
+                position: relative;
+            }
+
+            .scrollable {
+                position: fixed;
+                top: 33%;
+                right: 25%;
+                bottom: 33%;
+                left: 25%;
+                border: 2px solid blue;
+            }
+
+            .content {
+                position: absolute;
+                top: 33%;
+                right: 25%;
+                bottom: 33%;
+                left: 25%;
+            }
+
+            .item {
+                position: relative;
+                padding: 1em 2em 1em 5em;
+                border-bottom: 1px solid var(--ac-color);
+                box-sizing: border-box;
+                /* Temp */
+                width: 100%;
+            }
+
+            .item h2 {
+                font-size: 1em;
+                margin: 0;
+            }
+
+            .item p {
+                margin-bottom: 0;
+            }
+
+            .item img {
+                height: 3em;
+                width: 3em;
+                border-radius: 50%;
+                position: absolute;
+                margin-left: -4em;
+                background-color: var(--ac-color);
+            }
+
+            .compact .item p {
+                display: none;
+            }
+
+            .compact .item .letter,
+            .compact .item img {
+                height: 1.8em;
+                width: 1.8em;
+                margin-left: -2.5em;
+            }
+
+            .compact .item {
+                padding: 1em 2em 1em 3em;
+            }
+        </style>
+    </head>
+    <body class="compact">
+        <template>
+            <div class="item">
+                <img />
+                <h2></h2>
+                <p></p>
+            </div>
+        </template>
+        <section class="content">
+            <div class="spacer"></div>
+        </section>
+        <section class="scrollable"></section>
+    </body>
+</html>
+
