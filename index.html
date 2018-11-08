@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>CDS 2018 virtual-scroller demos</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+        <link rel="manifest" href="/manifest.json">
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js').then(
+                    function(registration) {
+                        console.log('Service worker registration succeeded:', registration);
+                    },
+                    function(error) {
+                        console.log('Service worker registration failed:', error);
+                    }
+                );
+            } else {
+                console.log('Service workers are not supported.');
+            }
+        </script>
+        <style>
+            body {
+                font-size: 12pt;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <p>Hi.</p>
+        <p><a href="/perf-demo/?5">Perf Demo: 5 items, no &lt;virtual-scroller&gt;</a></p>
+        <p><a href="/perf-demo/?50&j">Perf Demo: 50 items, no &lt;virtual-scroller&gt;</a></p>
+        <p><a href="/perf-demo/?j">Perf Demo: 500 items, no &lt;virtual-scroller&gt;</a></p>
+        <p><a href="/perf-demo/?v&500&j">Perf Demo: 500 items, with &lt;virtual-scroller&gt;</a></p>
+        <p><a href="/perf-demo/?v&5000&j">Perf Demo: 5000 items, with &lt;virtual-scroller&gt;</a></p>
+    </body>
+</html>

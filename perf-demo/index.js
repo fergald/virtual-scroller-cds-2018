@@ -23,7 +23,7 @@ function createItem() {
         name: el.querySelector('h2'),
         text: el.querySelector('p')
     }
-    el.$.text.addEventListener('click', () => el.$.text.textContent = "Hi!");
+    // el.$.text.addEventListener('click', () => el.$.text.textContent = "Hi!");
     return el;
 }
 
@@ -73,7 +73,7 @@ function setUpScroller(items) {
     scroller.itemSource = items;
 }
 
-function hookUpUI() {
+function hookUpUI({jank}) {
     const settings = document.querySelector('#settings');
     let autoClose;
     const scheduleClose = () => {
@@ -81,6 +81,8 @@ function hookUpUI() {
         autoClose = window.setTimeout(() => settings.classList.remove('open'), 4000);
     }
     const revealJank = (fn) => {
+        if (!jank) return fn();
+        
         document.body.classList.add('janking');
         // setTimeout(() => {
         //     fn();
@@ -120,8 +122,12 @@ function hookUpUI() {
 }
 
 async function go() {
-    hookUpUI();
-    const n = 50;
+    const opts = window.location.search ? window.location.search.substr(1).split('&') : [];
+
+    const jank = Boolean(opts.find(opt => opt === 'j'));
+    hookUpUI({jank});
+    
+    const n = Number(opts.find(opt => opt.match(/\d/))) || 500;
     let items = [];
     const resp = await fetch('../contacts.json');
     const orig = await resp.json();
@@ -129,7 +135,8 @@ async function go() {
         items = items.concat(orig);
     }
     items.length = n;
-    const render = window.location.search === '?v' ? setUpScroller : makeEmAll;
+    
+    const render = opts.find(opt => opt === 'v') ? setUpScroller : makeEmAll;
     render(items);
     window.items = items;
 }
