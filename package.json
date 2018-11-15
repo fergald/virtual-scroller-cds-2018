@@ -1,0 +1,26 @@
+{
+  "name": "vs-cds-2018",
+  "version": "0.1.0",
+  "description": "CDS",
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "polyserve": "^0.27.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graynorton/virtual-scroller-cds-2018.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/graynorton/virtual-scroller-cds-2018/issues"
+  },
+  "homepage": "https://github.com/graynorton/virtual-scroller-cds-2018#readme"
+}

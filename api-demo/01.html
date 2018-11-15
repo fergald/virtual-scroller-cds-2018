@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>&lt;virtual-scroller&gt; API</title>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+    </head>
+<body>
+
+<style>
+    body {
+        margin: 0;
+        display: flex;
+    }
+    virtual-scroller {
+        flex: 1;
+        height: unset;
+    }
+</style>
+
+<script type="module">
+    import 'virtual-scroller/virtual-scroller-element.js';
+
+    const scroller = document.querySelector('virtual-scroller');
+
+    scroller.updateElement = (el, contact, idx) => el.textContent = contact.name;
+
+    async function getData() {
+        const resp = await fetch('../contacts.json');
+        scroller.itemSource = await resp.json();
+    }
+
+    getData();
+</script>
+        
+<virtual-scroller></virtual-scroller>
+
+</body>
+</html>
+

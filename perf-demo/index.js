@@ -67,7 +67,7 @@ function setUpScroller(items) {
     };
     scroller.updateElement = populateItem;
     scroller.recycleElement = function(el) {
-        el.parentNode.removeChild(el);
+        // el.parentNode.removeChild(el);
         pool.push(el);
     };
     scroller.itemSource = items;
@@ -84,10 +84,6 @@ function hookUpUI({jank}) {
         if (!jank) return fn();
         
         document.body.classList.add('janking');
-        // setTimeout(() => {
-        //     fn();
-        //     requestAnimationFrame(() => document.body.classList.remove('janking'));
-        // }, 0);
         setTimeout(() => {
             fn();
             let lastFrame = window.performance.now();
@@ -109,7 +105,6 @@ function hookUpUI({jank}) {
             }
             window.requestAnimationFrame(check);
         }, 0);
-        // fn();
     }
     document.querySelector('#gear')
         .addEventListener('click', () => { settings.classList.toggle('open'); scheduleClose(); });
