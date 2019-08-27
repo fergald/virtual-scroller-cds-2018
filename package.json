@@ -7,11 +7,16 @@
     "lib": "lib"
   },
   "dependencies": {
-    "polyserve": "^0.27.13"
+    "virtual-scroller": "github:WICG/virtual-scroller#traditional-virtualization"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "es-dev-server": "^1.15.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "es-dev-server --node-resolve --watch"
   },
   "repository": {
     "type": "git",

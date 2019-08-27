@@ -1,4 +1,4 @@
-import 'virtual-scroller/virtual-scroller-element.js';
+import 'virtual-scroller/src/virtual-scroller.mjs';
 import '../lib/v-slider.js';
 
 const itemTemplate = document.querySelector('template');
@@ -27,10 +27,10 @@ function createItem() {
     return el;
 }
 
-function populateItem(el, data) {
+function populateItem(el, data, idx) {
     el.$.image.src = blank;
     // el.$.letter.textContent = data.name.substr(0, 1);
-    el.$.name.textContent = data.name;
+    el.$.name.textContent = `${idx}: ${data.name}`;
     el.$.text.textContent = data.mediumText;
     onNextFrame(() => el.$.image.src = data.image);
 }
@@ -49,9 +49,10 @@ function populateItem(el, data) {
 // }
 
 function makeEmAll(items) {
+    let idx = 0;
     items.forEach(item => {
         const el = createItem();
-        populateItem(el, item);
+        populateItem(el, item, idx++);
         document.querySelector('.scrollable').appendChild(el);
     });
 }
