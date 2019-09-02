@@ -1,4 +1,3 @@
-import 'virtual-scroller/src/virtual-scroller.mjs';
 import '../lib/v-slider.js';
 
 const itemTemplate = document.querySelector('template');
@@ -48,7 +47,8 @@ function populateItem(el, data, idx) {
 //     el.textContent = data.name;
 // }
 
-function makeEmAll(items) {
+async function makeEmAll(items) {
+    import('std:elements/virtual-scroller');
     let idx = 0;
     items.forEach(item => {
         const el = createItem();
@@ -57,7 +57,8 @@ function makeEmAll(items) {
     });
 }
 
-function setUpScroller(items) {
+async function setUpScroller(items) {
+    await import('virtual-scroller/src/virtual-scroller.mjs');
     const pool = [];
     const scroller = document.createElement('virtual-scroller');
     // scroller.setAttribute('layout', 'vertical-grid');
@@ -83,7 +84,7 @@ function hookUpUI({jank}) {
     }
     const revealJank = (fn) => {
         if (!jank) return fn();
-        
+
         document.body.classList.add('janking');
         setTimeout(() => {
             fn();
@@ -122,7 +123,7 @@ async function go() {
 
     const jank = Boolean(opts.find(opt => opt === 'j'));
     hookUpUI({jank});
-    
+
     const n = Number(opts.find(opt => opt.match(/\d/))) || 500;
     let items = [];
     const resp = await fetch('../contacts.json');
@@ -131,10 +132,29 @@ async function go() {
         items = items.concat(orig);
     }
     items.length = n;
-    
-    const render = opts.find(opt => opt === 'v') ? setUpScroller : makeEmAll;
+
+    const render = await opts.find(opt => opt === 'v') ? setUpScroller : makeEmAll;
     render(items);
     window.items = items;
+}
+
+function swapScrollable() {
+  const scrollable = document.querySelector('.scrollable');
+  const swapInLocalName = scrollable.localName === "section" ? "virtual-scroller" : "section";
+  const swapIn = document.createElement(swapInLocalName);
+  swapElement(scrollable, swapIn);
+}
+window.swapScrollable = swapScrollable;
+/**
+ * Replaces |swapOut| with |swapIn| in the DOM. Reparent all children
+ * and copy all attributes.
+ */
+function swapElement(swapOut, swapIn) {
+  for (const a of swapOut.getAttributeNames()) {
+    swapIn.setAttribute(a, swapOut.getAttribute(a));
+  }
+  swapIn.append(...swapOut.childNodes);
+  swapOut.replaceWith(swapIn);
 }
 
 go();
