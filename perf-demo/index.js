@@ -137,6 +137,9 @@ async function go() {
     if (opts.find(opt => opt === 'v2')) {
         swapScrollable();
     }
+    if (opts.find(opt => opt === 'ar')) {
+        document.body.classList.toggle('resize');
+    }
     render(items);
     window.items = items;
 }
