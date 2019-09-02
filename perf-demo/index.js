@@ -134,6 +134,9 @@ async function go() {
     items.length = n;
 
     const render = await opts.find(opt => opt === 'v') ? setUpScroller : makeEmAll;
+    if (opts.find(opt => opt === 'v2')) {
+        swapScrollable();
+    }
     render(items);
     window.items = items;
 }
