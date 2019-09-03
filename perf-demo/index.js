@@ -47,8 +47,12 @@ function populateItem(el, data, idx) {
 //     el.textContent = data.name;
 // }
 
-async function makeEmAll(items) {
-    import('std:elements/virtual-scroller');
+async function makeEmAll(items, opts) {
+    if(opts.find(opt => opt === 'v2')) {
+        import('std:elements/virtual-scroller');
+    } else {
+        import('./just-slot.js');
+    }
     let idx = 0;
     items.forEach(item => {
         const el = createItem();
@@ -134,13 +138,13 @@ async function go() {
     items.length = n;
 
     const render = await opts.find(opt => opt === 'v') ? setUpScroller : makeEmAll;
-    if (opts.find(opt => opt === 'v2')) {
+    if (opts.find(opt => (opt === 'v2' || opt === 'vj'))) {
         swapScrollable();
     }
     if (opts.find(opt => opt === 'ar')) {
         document.body.classList.toggle('resize');
     }
-    render(items);
+    render(items, opts);
     window.items = items;
 }
 
